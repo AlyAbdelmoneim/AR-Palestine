@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="gazafinal" size="0.300000 0.200000" />
+    <ImageTarget name="nablusfinal" size="0.300000 0.200000" />
+    <ImageTarget name="acre2" size="0.300000 0.213917" />
+    <ImageTarget name="quds" size="0.300000 0.438615" />
+    <ImageTarget name="khalil" size="0.300000 0.438615" />
+    <ImageTarget name="ramallah" size="0.300000 0.438615" />
+    <ImageTarget name="tulkarim" size="0.300000 0.438615" />
+  </Tracking>
+</QCARConfig>
