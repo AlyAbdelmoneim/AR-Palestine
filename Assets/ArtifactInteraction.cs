@@ -8,19 +8,17 @@ public class ArtifactInteraction : MonoBehaviour
     public string correctAnswer = "A";
 
     private void OnMouseDown()
+{
+    Debug.Log("Clicked: " + gameObject.name);
+
+    QuizManager qm = FindObjectOfType<QuizManager>();
+    if (qm != null)
     {
-        Debug.Log("Clicked: " + gameObject.name);
-        QuizManager qm = FindObjectOfType<QuizManager>();
-        if (qm != null)
-        {
-            // ✅ Pass 'this' to track which artifact was clicked
-            qm.ShowQuestion(question, answers, correctAnswer, this);
-        }
-        else
-        {
-            Debug.LogError("QuizManager not found!");
-        }
+        GameManager.Instance.HideCurrentClue(); // 👈 Hide current clue
+        qm.ShowQuestion(question, answers, correctAnswer, this);
     }
+}
+
 
     // ✅ Add this method so the QuizManager can call it to hide the object
     public void HideArtifact()

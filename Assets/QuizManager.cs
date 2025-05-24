@@ -2,8 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class QuizManager : MonoBehaviour
 {
+    public AudioClip correctAnswerSound;
+    public AudioClip WrongAnswerSound;
+    private AudioSource audioSource;
     public GameObject quizPanel;
     public GameObject gameEndPanel; // ✅ New field for the win panel
     public TextMeshProUGUI questionText;
@@ -13,6 +17,12 @@ public class QuizManager : MonoBehaviour
     private string correctAnswer;
     private int currentScore = 0;
     private ArtifactInteraction currentArtifact;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
 
     public void ShowQuestion(string question, string[] answers, string correct, ArtifactInteraction artifact)
     {
@@ -61,12 +71,18 @@ public class QuizManager : MonoBehaviour
 
         if (selectedNormalized == correctNormalized)
         {
+            if (audioSource != null && correctAnswerSound != null)
+            {
+                audioSource.PlayOneShot(correctAnswerSound);
+            }
+
             currentScore++;
             scoreText.text = "Score: " + currentScore;
 
             if (currentArtifact != null)
             {
                 currentArtifact.HideArtifact();
+                GameManager.Instance.ShowNextClue(); // 👈 Show next clue
             }
 
             quizPanel.SetActive(false);
@@ -80,7 +96,13 @@ public class QuizManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Incorrect answer. Try again.");
+            if (audioSource != null && WrongAnswerSound != null)
+            {
+                audioSource.PlayOneShot(WrongAnswerSound);
+            }
+
+            Debug.Log("Wrong answer! Try again.");
+            // Optionally, you can provide feedback to the player here
         }
     }
 
@@ -94,3 +116,4 @@ public class QuizManager : MonoBehaviour
 #endif
     }
 }
+
